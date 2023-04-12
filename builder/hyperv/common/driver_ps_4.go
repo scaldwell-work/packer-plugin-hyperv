@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"runtime"
 	"strconv"
 	"strings"
 
@@ -18,7 +17,7 @@ type HypervPS4Driver struct {
 func NewHypervPS4Driver() (Driver, error) {
 	errPsRequired:= "Powershell is required"
 
-    if path,err:=powershell.FindPowerShell() {
+    if _, err:=powershell.FindPowerShell(); err!=nil {
         err := fmt.Errorf("%s (%s)", errPsRequired, err)
 		return nil, err
 	}
