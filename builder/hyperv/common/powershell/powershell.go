@@ -18,6 +18,24 @@ const (
 	powerShellTrue  = "True"
 )
 
+// FindPowerShell() - find the current powershell command
+func FindPowerShell() (path string, err error) {
+    /*
+     * There are two possible powershell commands:
+     *      - Windows: powershell
+     *      - Linux: pwsh
+     *
+     * This function will verify which one (if either) is
+     * installed and return a response accordingly.
+     */
+	if path, err = exec.LookPath("powershell"); err != nil {
+		if path, err = exec.LookPath("pwsh"); err != nil {
+			return path, err
+		}
+	}
+	return path, err
+}
+
 func IsTrue(s string) bool {
 	return strings.TrimSpace(s) == powerShellTrue
 }
@@ -102,7 +120,7 @@ func (ps *PowerShellCmd) Output(fileContents string, params ...string) (string, 
 }
 
 func IsPowershellAvailable() (bool, string, error) {
-	path, err := exec.LookPath("powershell")
+	path, err := FindPowerShell()
 	if err != nil {
 		return false, "", err
 	} else {
