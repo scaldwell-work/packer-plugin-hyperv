@@ -2,3 +2,6 @@ main
 dist/*
 packer-plugin-scaffolding
 .docs
+packer-plugin-hyperv
+.idea/
+*.swp
