@@ -16,11 +16,10 @@ type HypervPS4Driver struct {
 }
 
 func NewHypervPS4Driver() (Driver, error) {
-	appliesTo := "Applies to Windows 8.1, Windows PowerShell 4.0, Windows Server 2012 R2 only"
+	errPsRequired:= "Powershell is required"
 
-	// Check this is Windows
-	if runtime.GOOS != "windows" {
-		err := fmt.Errorf("%s", appliesTo)
+    if path,err:=powershell.FindPowerShell() {
+        err := fmt.Errorf("%s (%s)", errPsRequired, err)
 		return nil, err
 	}
 
