@@ -23,3 +23,7 @@ jobs:
       with:
         GOOS: windows
         GOARCH: amd64
+    - uses: "./.github/actions/build-and-persist-plugin-binary"
+      with:
+        GOOS: linux
+        GOARCH: amd64
